@@ -6,7 +6,6 @@ import Pages.Login;
 import Pages.VM;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-@Test(groups = "createER")
 public class CreateCachedERVisit extends TestBase {
     Login login;
     Dashboard dashboard;
@@ -15,7 +14,7 @@ public class CreateCachedERVisit extends TestBase {
     String pass = "2579";
     String expectedDashboardURL = "http://dev-testing.andalusiagroup.net:7090/dashboard";
     CompletePatientInfo cp;
-    String arabicFirstName = "حافظ";
+    String arabicFirstName = "ربيع";
     String arabicSecondName = "سعد";
     String arabicThirdName = "سعيد";
     String arabicFourthName = "رامي";
@@ -36,7 +35,7 @@ public class CreateCachedERVisit extends TestBase {
         vm.waitForLoader();
         Assert.assertTrue(vm.getManagePatientVisitsHeader().contains("Manage Patient Visits"));
     }
-    @Test(priority = 2)
+    @Test(dependsOnMethods = "userNavigateToVM",priority = 2)
     public void userCanCreateCashedERVisit() throws InterruptedException {
         vm.selectVisitClass(4);
         vm.addNewVirtualVisit();
@@ -54,6 +53,11 @@ public class CreateCachedERVisit extends TestBase {
         mpiFrame.switchTo().parentFrame();
         vm.waitForLoader();
         vm.createVisitAndConfirmArrival();
+    }
+    @Test(priority = 3)
+    public void addVisitLabService() throws InterruptedException {
+        vm.waitForLoader();
+        vm.addLabService("cbc");
     }
 
 }

@@ -2,7 +2,6 @@ package Tests;
 
 import Pages.VM;
 import org.testng.annotations.Test;
-@Test(dependsOnGroups = "createER")
 public class AddService extends TestBase {
 
 

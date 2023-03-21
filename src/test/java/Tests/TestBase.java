@@ -4,19 +4,22 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeTest;
 
 import java.time.Duration;
 
 public class TestBase {
-    public static WebDriver driver;
+    protected static WebDriver driver;
     protected static WebDriver vmFrame;
     protected static WebDriver mpiFrame;
 
     @BeforeTest
     public void start (){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("http://dev-testing.andalusiagroup.net:7090/");
     }
